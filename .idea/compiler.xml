@@ -10,6 +10,7 @@
         <module name="common-dao" />
         <module name="common-remote" />
         <module name="common-util" />
+        <module name="common-core" />
       </profile>
     </annotationProcessing>
   </component>
