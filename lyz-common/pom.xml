@@ -15,5 +15,6 @@
     <modules>
         <module>common-dao</module>
         <module>common-remote</module>
+        <module>common-util</module>
     </modules>
 </project>

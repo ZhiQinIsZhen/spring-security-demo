@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="common-dao" />
         <module name="common-remote" />
+        <module name="common-util" />
       </profile>
     </annotationProcessing>
   </component>
