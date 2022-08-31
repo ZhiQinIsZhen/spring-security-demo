@@ -11,6 +11,7 @@
         <module name="common-remote" />
         <module name="common-util" />
         <module name="common-core" />
+        <module name="common-controller" />
       </profile>
     </annotationProcessing>
   </component>

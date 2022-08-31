@@ -17,5 +17,6 @@
         <module>common-remote</module>
         <module>common-util</module>
         <module>common-core</module>
+        <module>common-controller</module>
     </modules>
 </project>
