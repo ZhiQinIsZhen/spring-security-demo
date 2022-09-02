@@ -18,6 +18,8 @@
         <lyz.common.core.vsersion>1.0-SNAPSHOT</lyz.common.core.vsersion>
         <lyz.common.util.vsersion>1.0-SNAPSHOT</lyz.common.util.vsersion>
         <lyz.common.controller.vsersion>1.0-SNAPSHOT</lyz.common.controller.vsersion>
+        <lyz.auth.remote.vsersion>1.0-SNAPSHOT</lyz.auth.remote.vsersion>
+        <lyz.auth.client.vsersion>1.0-SNAPSHOT</lyz.auth.client.vsersion>
     </properties>
 
     <dependencies>
@@ -64,6 +66,16 @@
         <dependency>
             <groupId>org.apache.dubbo</groupId>
             <artifactId>dubbo-configcenter-apollo</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.lyz.security</groupId>
+            <artifactId>auth-client</artifactId>
+            <version>${lyz.auth.client.vsersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.lyz.security</groupId>
+            <artifactId>auth-remote</artifactId>
+            <version>${lyz.auth.remote.vsersion}</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>

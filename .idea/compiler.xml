@@ -8,16 +8,26 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="common-remote" />
+        <module name="auth-dao" />
         <module name="common-util" />
+        <module name="auth-biz" />
         <module name="user-remote" />
+        <module name="open-api" />
+        <module name="auth-provider" />
+        <module name="auth-core" />
+        <module name="auth-client" />
+        <module name="auth-remote" />
         <module name="common-dao" />
         <module name="user-provider" />
         <module name="user-dao" />
         <module name="user-biz" />
-        <module name="open-api" />
         <module name="common-core" />
         <module name="common-controller" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="lyz-security" target="8" />
+      <module name="security-core" target="8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

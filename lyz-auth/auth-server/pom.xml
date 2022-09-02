@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>lyz-auth</artifactId>
+        <groupId>com.lyz.security</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>auth-server</artifactId>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>auth-dao</module>
+        <module>auth-provider</module>
+        <module>auth-remote</module>
+        <module>auth-biz</module>
+    </modules>
+
+    <properties>
+        <lyz.auth.remote.vsersion>1.0-SNAPSHOT</lyz.auth.remote.vsersion>
+        <lyz.auth.dao.vsersion>1.0-SNAPSHOT</lyz.auth.dao.vsersion>
+        <lyz.auth.biz.vsersion>1.0-SNAPSHOT</lyz.auth.biz.vsersion>
+        <lyz.common.remote.vsersion>1.0-SNAPSHOT</lyz.common.remote.vsersion>
+        <lyz.common.dao.vsersion>1.0-SNAPSHOT</lyz.common.dao.vsersion>
+        <lyz.common.core.vsersion>1.0-SNAPSHOT</lyz.common.core.vsersion>
+        <lyz.common.util.vsersion>1.0-SNAPSHOT</lyz.common.util.vsersion>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.lyz.security</groupId>
+                <artifactId>auth-remote</artifactId>
+                <version>${lyz.auth.remote.vsersion}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.lyz.security</groupId>
+                <artifactId>auth-dao</artifactId>
+                <version>${lyz.auth.dao.vsersion}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.lyz.security</groupId>
+                <artifactId>auth-biz</artifactId>
+                <version>${lyz.auth.biz.vsersion}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.lyz.security</groupId>
+                <artifactId>common-remote</artifactId>
+                <version>${lyz.common.remote.vsersion}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.lyz.security</groupId>
+                <artifactId>common-dao</artifactId>
+                <version>${lyz.common.dao.vsersion}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.lyz.security</groupId>
+                <artifactId>common-core</artifactId>
+                <version>${lyz.common.core.vsersion}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.lyz.security</groupId>
+                <artifactId>common-util</artifactId>
+                <version>${lyz.common.util.vsersion}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>

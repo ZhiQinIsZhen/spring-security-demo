@@ -49,5 +49,10 @@
             <groupId>org.apache.dubbo</groupId>
             <artifactId>dubbo-configcenter-apollo</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.lyz.security</groupId>
+            <artifactId>auth-remote</artifactId>
+        </dependency>
     </dependencies>
 </project>

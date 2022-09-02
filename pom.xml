@@ -14,6 +14,7 @@
         <module>lyz-common</module>
         <module>lyz-service</module>
         <module>lyz-api</module>
+        <module>lyz-auth</module>
     </modules>
 
     <dependencyManagement>

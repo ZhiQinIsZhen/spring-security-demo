@@ -2,6 +2,7 @@ package com.lyz.security.api.open.controller.user;
 
 import com.lyz.security.api.open.vo.user.UserInfoVO;
 import com.lyz.security.api.open.vo.user.UserLoginLogVO;
+import com.lyz.security.api.open.vo.user.UserLogoutLogVO;
 import com.lyz.security.common.controller.dto.BasePageDTO;
 import com.lyz.security.common.controller.result.PageResult;
 import com.lyz.security.common.controller.result.Result;
@@ -9,6 +10,7 @@ import com.lyz.security.common.core.util.CommonCloneUtil;
 import com.lyz.security.common.remote.page.BasePageBO;
 import com.lyz.security.service.user.remote.RemoteUserInfoService;
 import com.lyz.security.service.user.remote.RemoteUserLoginLogService;
+import com.lyz.security.service.user.remote.RemoteUserLogoutLogService;
 import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboReference;
@@ -38,6 +40,8 @@ public class UserInfoController {
     private RemoteUserInfoService remoteUserInfoService;
     @DubboReference
     private RemoteUserLoginLogService remoteUserLoginLogService;
+    @DubboReference
+    private RemoteUserLogoutLogService remoteUserLogoutLogService;
 
     @ApiOperation("根据用户ID查询用户信息")
     @GetMapping("/userId")
@@ -56,6 +60,19 @@ public class UserInfoController {
                 CommonCloneUtil.remotePageClone(
                         remoteUserLoginLogService.pageByUserId(userId, CommonCloneUtil.objectClone(pageDTO, BasePageBO.class)),
                         UserLoginLogVO.class
+                )
+        );
+    }
+
+    @ApiOperation("根据用户ID查询用户登出日志")
+    @GetMapping("/page/userLogoutLog")
+    @ApiImplicitParam(name = "Authorization", value = "认证token", required = true, dataType = "String",
+            paramType = "header", defaultValue = "Bearer ")
+    public PageResult<UserLogoutLogVO> userLogoutLog(@RequestParam("userId") Long userId, BasePageDTO pageDTO) {
+        return PageResult.success(
+                CommonCloneUtil.remotePageClone(
+                        remoteUserLogoutLogService.pageByUserId(userId, CommonCloneUtil.objectClone(pageDTO, BasePageBO.class)),
+                        UserLogoutLogVO.class
                 )
         );
     }

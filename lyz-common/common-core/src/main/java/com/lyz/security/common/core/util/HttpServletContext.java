@@ -1,4 +1,4 @@
-package com.lyz.security.common.controller.config;
+package com.lyz.security.common.core.util;
 
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;

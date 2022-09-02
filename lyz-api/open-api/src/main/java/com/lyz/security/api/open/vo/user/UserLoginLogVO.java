@@ -23,16 +23,16 @@ public class UserLoginLogVO implements Serializable {
     @ApiModelProperty(value = "用户ID")
     private Long userId;
 
-    @ApiModelProperty(value = "登陆方式(1:手机;2:邮箱)")
+    @ApiModelProperty(value = "登出方式(1:手机;2:邮箱)")
     private Integer type;
 
-    @ApiModelProperty(value = "登陆设备(1移动端:;2:网页端)")
+    @ApiModelProperty(value = "登出设备(1移动端:;2:网页端)")
     private Integer device;
 
-    @ApiModelProperty(value = "登陆时间")
+    @ApiModelProperty(value = "登出时间")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date loginTime;
 
-    @ApiModelProperty(value = "登陆IP地址")
+    @ApiModelProperty(value = "登出IP地址")
     private String loginIp;
 }

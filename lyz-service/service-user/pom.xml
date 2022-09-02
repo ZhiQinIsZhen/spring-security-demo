@@ -20,6 +20,7 @@
         <lyz.common.dao.vsersion>1.0-SNAPSHOT</lyz.common.dao.vsersion>
         <lyz.common.core.vsersion>1.0-SNAPSHOT</lyz.common.core.vsersion>
         <lyz.common.util.vsersion>1.0-SNAPSHOT</lyz.common.util.vsersion>
+        <lyz.auth.remote.vsersion>1.0-SNAPSHOT</lyz.auth.remote.vsersion>
     </properties>
 
     <modules>
@@ -65,6 +66,11 @@
                 <groupId>com.lyz.security</groupId>
                 <artifactId>common-util</artifactId>
                 <version>${lyz.common.util.vsersion}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.lyz.security</groupId>
+                <artifactId>auth-remote</artifactId>
+                <version>${lyz.auth.remote.vsersion}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
