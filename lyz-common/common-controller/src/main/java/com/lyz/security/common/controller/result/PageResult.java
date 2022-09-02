@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.google.common.collect.Lists;
 import com.lyz.security.common.remote.exception.CommonExceptionCodeEnum;
 import com.lyz.security.common.remote.exception.IExceptionCodeService;
-import com.lyz.security.common.remote.page.Page;
+import com.lyz.security.common.remote.page.RemotePage;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -28,17 +28,17 @@ public class PageResult<T> {
 
     private Long total;
 
-    private Integer pages;
+    private Long pages;
 
-    private Integer pageNum;
+    private Long pageNum;
 
-    private Integer pageSize;
+    private Long pageSize;
 
     private Boolean hasNextPage;
 
     private List<T> data;
 
-    public static <T> PageResult<T> success(Page<T> data) {
+    public static <T> PageResult<T> success(RemotePage<T> data) {
         return new PageResult<>(data);
     }
 
@@ -52,7 +52,7 @@ public class PageResult<T> {
 
     public PageResult() {}
 
-    public PageResult(Page<T> data) {
+    public PageResult(RemotePage<T> data) {
         boolean isNull = data == null;
         this.setData(isNull ? Lists.newArrayList() : data.getList());
         this.total = isNull ? 0L : data.getTotal();
@@ -68,9 +68,9 @@ public class PageResult<T> {
         this.code = code;
         this.message = message;
         this.total = 0L;
-        this.pages = 0;
-        this.pageNum = 0;
-        this.pageSize = 0;
+        this.pages = 0L;
+        this.pageNum = 0L;
+        this.pageSize = 0L;
         this.hasNextPage = false;
     }
 }

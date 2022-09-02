@@ -12,6 +12,8 @@
     <modules>
         <module>parent-dependencies-bom</module>
         <module>lyz-common</module>
+        <module>lyz-service</module>
+        <module>lyz-api</module>
     </modules>
 
     <dependencyManagement>

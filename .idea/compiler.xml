@@ -7,9 +7,14 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="common-dao" />
         <module name="common-remote" />
         <module name="common-util" />
+        <module name="user-remote" />
+        <module name="common-dao" />
+        <module name="user-provider" />
+        <module name="user-dao" />
+        <module name="user-biz" />
+        <module name="open-api" />
         <module name="common-core" />
         <module name="common-controller" />
       </profile>

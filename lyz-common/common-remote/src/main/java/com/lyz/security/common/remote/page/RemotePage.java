@@ -15,10 +15,10 @@ import java.util.List;
  */
 @Getter
 @Setter
-public class Page<T> implements Serializable {
+public class RemotePage<T> implements Serializable {
     private static final long serialVersionUID = 7496308334162518721L;
 
-    public Page(List<T> list, long total, int pages, int pageNum, int pageSize, boolean hasNextPage) {
+    public RemotePage(List<T> list, long total, long pages, long pageNum, long pageSize, boolean hasNextPage) {
         this.list = list;
         this.total = total;
         this.pages = pages;
@@ -40,17 +40,17 @@ public class Page<T> implements Serializable {
     /**
      * 总页数
      */
-    private int pages;
+    private long pages;
 
     /**
      * 当前页
      */
-    private int pageNum;
+    private long pageNum;
 
     /**
      * 每页的数量
      */
-    private int pageSize;
+    private long pageSize;
 
     /**
      * 是否有下一页

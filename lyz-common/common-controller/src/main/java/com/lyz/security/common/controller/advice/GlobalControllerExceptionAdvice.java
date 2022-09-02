@@ -30,13 +30,13 @@ public class GlobalControllerExceptionAdvice {
 
     @ExceptionHandler({Exception.class})
     public Result exception(Exception exception) {
-        log.error("未知异常", exception);
+        log.warn("未知异常", exception);
         return Result.error(CommonExceptionCodeEnum.UNKNOWN_EXCEPTION);
     }
 
     @ExceptionHandler({RpcException.class})
     public Result rpcException(RpcException exception) {
-        log.error("远程服务调用异常->rpc", exception);
+        log.warn("远程服务调用异常->rpc", exception);
         return Result.error(CommonExceptionCodeEnum.REMOTE_SERVICE_FAIL);
     }
 
@@ -49,7 +49,7 @@ public class GlobalControllerExceptionAdvice {
                 return Result.error(CommonExceptionCodeEnum.PARAMS_VALIDATED.getCode(), error.getDefaultMessage());
             }
         }
-        log.error("参数校验出错了");
+        log.warn("参数校验出错了");
         return Result.error(CommonExceptionCodeEnum.PARAMS_VALIDATED);
     }
 

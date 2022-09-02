@@ -14,10 +14,10 @@ import java.io.Serializable;
  */
 @Getter
 @Setter
-public class PageBO implements Serializable {
+public class BasePageBO implements Serializable {
     private static final long serialVersionUID = -4593438488153493420L;
 
-    private Integer pageNum = 1;
+    private Long pageNum = 1L;
 
-    private Integer pageSize = 10;
+    private Long pageSize = 10L;
 }

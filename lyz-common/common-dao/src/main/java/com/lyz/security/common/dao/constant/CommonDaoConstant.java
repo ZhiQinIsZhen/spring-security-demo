@@ -15,5 +15,9 @@ public interface CommonDaoConstant {
 
     String DEFAULT_DELETED = "isDeleted";
 
+    String DEFAULT_VERSION = "version";
+
     Integer DEFAULT_DELETED_VALUE = 0;
+
+    Integer DEFAULT_VERSION_VALUE = 0;
 }

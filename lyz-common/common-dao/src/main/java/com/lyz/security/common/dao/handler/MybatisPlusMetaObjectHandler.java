@@ -20,7 +20,8 @@ public class MybatisPlusMetaObjectHandler implements MetaObjectHandler {
         Date now = new Date();
         setFieldValByName(CommonDaoConstant.DEFAULT_CREATE_TIME, now, metaObject);
         setFieldValByName(CommonDaoConstant.DEFAULT_UPDATE_TIME, now, metaObject);
-        setFieldValByName(CommonDaoConstant.DEFAULT_DELETED, 0, metaObject);
+        setFieldValByName(CommonDaoConstant.DEFAULT_DELETED, CommonDaoConstant.DEFAULT_DELETED_VALUE, metaObject);
+        setFieldValByName(CommonDaoConstant.DEFAULT_VERSION, CommonDaoConstant.DEFAULT_VERSION_VALUE, metaObject);
     }
 
     @Override

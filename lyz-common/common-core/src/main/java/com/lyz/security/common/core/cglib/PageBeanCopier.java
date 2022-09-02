@@ -2,7 +2,7 @@ package com.lyz.security.common.core.cglib;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
-import com.lyz.security.common.remote.page.Page;
+import com.lyz.security.common.remote.page.RemotePage;
 
 import java.util.List;
 import java.util.Objects;
@@ -19,26 +19,26 @@ public class PageBeanCopier<F, T> extends BaseBeanCopier<F, T> {
     /**
      * 自定义page to page
      *
-     * @param sourcePageInfo
+     * @param sourceRemotePageInfo
      * @param function
      * @param <F>
      * @param <T>
      * @return
      */
-    public static <F, T> Page<T> pageToPage(Page<F> sourcePageInfo, Function<? super F, ? extends T> function) {
-        if (sourcePageInfo == null) {
+    public static <F, T> RemotePage<T> pageToPage(RemotePage<F> sourceRemotePageInfo, Function<? super F, ? extends T> function) {
+        if (sourceRemotePageInfo == null) {
             return null;
         }
-        List<T> targetList = Objects.nonNull(sourcePageInfo.getList()) ?
-                Lists.transform(sourcePageInfo.getList(), function) :
+        List<T> targetList = Objects.nonNull(sourceRemotePageInfo.getList()) ?
+                Lists.transform(sourceRemotePageInfo.getList(), function) :
                 Lists.newArrayList();
-        return new Page<T>(
+        return new RemotePage<T>(
                 targetList,
-                sourcePageInfo.getTotal(),
-                sourcePageInfo.getPages(),
-                sourcePageInfo.getPageNum(),
-                sourcePageInfo.getPageSize(),
-                sourcePageInfo.isHasNextPage()
+                sourceRemotePageInfo.getTotal(),
+                sourceRemotePageInfo.getPages(),
+                sourceRemotePageInfo.getPageNum(),
+                sourceRemotePageInfo.getPageSize(),
+                sourceRemotePageInfo.isHasNextPage()
         );
     }
 }

@@ -1,11 +1,12 @@
 package com.lyz.security.common.core.util;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import com.lyz.security.common.core.cglib.PageBeanCopier;
 import com.lyz.security.common.core.cglib.SimpleBeanCopier;
 import com.lyz.security.common.core.constant.CommonCoreConstant;
-import com.lyz.security.common.remote.page.Page;
+import com.lyz.security.common.remote.page.RemotePage;
 import lombok.experimental.UtilityClass;
 import org.springframework.util.CollectionUtils;
 
@@ -64,7 +65,7 @@ public class CommonCloneUtil {
      * @param <Y>
      * @return
      */
-    public static <T,Y> List<Y> ListClone(List<T> sourceList, Class<Y> targetClass) {
+    public static <T,Y> List<Y> listClone(List<T> sourceList, Class<Y> targetClass) {
         if (sourceList == null) {
             return null;
         }
@@ -78,21 +79,51 @@ public class CommonCloneUtil {
     /**
      * page对象拷贝
      *
-     * @param sourcePage
+     * @param sourceRemotePage
      * @param targetClass
      * @param <T>
      * @param <Y>
      * @return
      */
-    public static <T,Y> Page<Y> PageClone(Page<T> sourcePage, Class<Y> targetClass) {
-        if (sourcePage == null) {
+    public static <T,Y> RemotePage<Y> remotePageClone(RemotePage<T> sourceRemotePage, Class<Y> targetClass) {
+        if (sourceRemotePage == null) {
             return null;
         }
-        if (sourcePage.getTotal() == 0 || CollectionUtils.isEmpty(sourcePage.getList())) {
-            return new Page<>(null, sourcePage.getTotal(), sourcePage.getPages(), sourcePage.getPageNum(), sourcePage.getPages(), sourcePage.isHasNextPage());
+        if (sourceRemotePage.getTotal() == 0 || CollectionUtils.isEmpty(sourceRemotePage.getList())) {
+            return new RemotePage<>(
+                    Lists.newArrayList(),
+                    sourceRemotePage.getTotal(),
+                    sourceRemotePage.getPages(),
+                    sourceRemotePage.getPageNum(),
+                    sourceRemotePage.getPageSize(),
+                    sourceRemotePage.isHasNextPage()
+            );
         }
-        SimpleBeanCopier simpleBeanCopier = getCopier(sourcePage.getList().get(0).getClass(), targetClass);
-        return PageBeanCopier.pageToPage(sourcePage, simpleBeanCopier);
+        SimpleBeanCopier simpleBeanCopier = getCopier(sourceRemotePage.getList().get(0).getClass(), targetClass);
+        return PageBeanCopier.pageToPage(sourceRemotePage, simpleBeanCopier);
+    }
+
+    /**
+     * mybatis page 转化为 remotePage
+     *
+     * @param page
+     * @param targetClass
+     * @param <T>
+     * @param <Y>
+     * @return
+     */
+    public static <T,Y> RemotePage<Y> pageToRemotePage(Page<T> page, Class<Y> targetClass) {
+        if (page == null) {
+            return null;
+        }
+        return new RemotePage<Y>(
+                CollectionUtils.isEmpty(page.getRecords()) ? Lists.newArrayList() : listClone(page.getRecords(), targetClass),
+                page.getTotal(),
+                page.getPages(),
+                page.getCurrent(),
+                page.getSize(),
+                page.hasNext()
+        );
     }
 
     /**
