@@ -17,6 +17,8 @@ public enum AuthExceptionCodeEnum implements IExceptionCodeService {
     LOGIN_FAIL("20001", "用户名或者密码错误"),
     AUTHORIZATION_FAIL("20002", "认证失败"),
     AUTHORIZATION_TIMEOUT("20003", "认证超时"),
+    REGISTRY_ERROR("20004", "注册错误"),
+    LOGIN_ERROR("20005", "登陆错误"),
     ;
 
     private String code;

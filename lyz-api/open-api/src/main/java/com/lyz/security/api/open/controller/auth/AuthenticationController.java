@@ -2,15 +2,17 @@ package com.lyz.security.api.open.controller.auth;
 
 import com.lyz.security.api.open.dto.auth.LoginDTO;
 import com.lyz.security.api.open.dto.auth.UserRegisterDTO;
-import com.lyz.security.auth.client.AuthUser;
 import com.lyz.security.auth.client.annotation.Anonymous;
 import com.lyz.security.auth.client.context.AuthContext;
-import com.lyz.security.auth.client.context.DeviceContext;
-import com.lyz.security.auth.server.constant.Device;
+import com.lyz.security.auth.server.bo.AuthUserRegisterBO;
 import com.lyz.security.common.controller.result.Result;
+import com.lyz.security.common.core.util.CommonCloneUtil;
 import com.lyz.security.common.core.util.HttpServletContext;
 import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.dubbo.spring.boot.util.DubboUtils;
+import org.springframework.context.EnvironmentAware;
+import org.springframework.core.env.Environment;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Objects;
 
 /**
  * 注释:鉴权网关
@@ -35,19 +36,17 @@ import java.util.Objects;
 @Slf4j
 @RestController
 @RequestMapping("/auth")
-public class AuthenticationController {
+public class AuthenticationController implements EnvironmentAware {
+
+    private Environment environment;
 
     @Anonymous
     @ApiOperation("注册")
     @PostMapping("/register")
     public Result<Boolean> register(@Validated({UserRegisterDTO.Register.class}) @RequestBody UserRegisterDTO userRegisterDTO) {
-        AuthUser authUser = AuthContext.getAuthUser();
-        if (Objects.isNull(authUser)) {
-            return Result.success(Boolean.FALSE);
-        }
-        Device device = DeviceContext.getDevice(HttpServletContext.getRequest());
-
-        return Result.success(Boolean.TRUE);
+        AuthUserRegisterBO authUserRegisterBO = CommonCloneUtil.objectClone(userRegisterDTO, AuthUserRegisterBO.class);
+        authUserRegisterBO.setApplicationName(environment.getProperty(DubboUtils.DUBBO_APPLICATION_NAME_PROPERTY));
+        return Result.success(AuthContext.registry(authUserRegisterBO));
     }
 
     @Anonymous
@@ -67,5 +66,10 @@ public class AuthenticationController {
             paramType = "header", defaultValue = "Bearer ")
     public Result<Boolean> logout() {
         return Result.success(AuthContext.logout());
+    }
+
+    @Override
+    public void setEnvironment(Environment environment) {
+        this.environment = environment;
     }
 }

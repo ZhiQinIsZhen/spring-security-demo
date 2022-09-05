@@ -2,6 +2,7 @@ package com.lyz.security.auth.client.context;
 
 import com.lyz.security.auth.client.AuthUser;
 import com.lyz.security.auth.server.bo.AuthUserLogoutBO;
+import com.lyz.security.auth.server.bo.AuthUserRegisterBO;
 import com.lyz.security.auth.server.remote.RemoteAuthService;
 import com.lyz.security.common.core.util.CommonCloneUtil;
 import com.lyz.security.common.core.util.HttpServletContext;
@@ -27,6 +28,23 @@ public class AuthContext implements ApplicationContextAware, InitializingBean {
     private static ApplicationContext applicationContext;
     private static InheritableThreadLocal<AuthUser> innerContext = new InheritableThreadLocal<>();
     private static RemoteAuthService remoteAuthService;
+
+    /**
+     * 用户注册
+     *
+     * @param authUserRegisterBO
+     * @return
+     */
+    public static Boolean registry(AuthUserRegisterBO authUserRegisterBO) {
+        return remoteAuthService.registry(authUserRegisterBO);
+    }
+
+    /**
+     * 登陆
+     */
+    public static void login() {
+
+    }
 
     /**
      * 登出

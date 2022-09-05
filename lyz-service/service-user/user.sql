@@ -23,7 +23,7 @@ CREATE TABLE `user_auth_mobile` (
                                 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户手机认证表';
 
 CREATE TABLE `user_info` (
-                             `user_id` bigint(20) unsigned NOT NULL COMMENT '用户ID',
+                             `user_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '用户ID',
                              `real_name` varchar(128) DEFAULT NULL COMMENT '真实名称',
                              `nick_name` varchar(128) NOT NULL COMMENT '昵称',
                              `mobile` varchar(11) DEFAULT NULL COMMENT '手机号码',
