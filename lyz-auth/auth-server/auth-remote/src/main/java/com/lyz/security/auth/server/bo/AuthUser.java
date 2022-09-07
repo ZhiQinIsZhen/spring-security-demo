@@ -52,4 +52,6 @@ public class AuthUser implements Serializable {
     private String token;
 
     private Long expiration;
+
+    private List<AuthGrantedAuthorityBO> authorities;
 }

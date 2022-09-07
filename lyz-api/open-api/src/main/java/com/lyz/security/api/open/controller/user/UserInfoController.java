@@ -3,6 +3,7 @@ package com.lyz.security.api.open.controller.user;
 import com.lyz.security.api.open.vo.user.UserInfoVO;
 import com.lyz.security.api.open.vo.user.UserLoginLogVO;
 import com.lyz.security.api.open.vo.user.UserLogoutLogVO;
+import com.lyz.security.auth.client.context.AuthContext;
 import com.lyz.security.common.controller.dto.BasePageDTO;
 import com.lyz.security.common.controller.result.PageResult;
 import com.lyz.security.common.controller.result.Result;
@@ -14,9 +15,9 @@ import com.lyz.security.service.user.remote.RemoteUserLogoutLogService;
 import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboReference;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -43,35 +44,38 @@ public class UserInfoController {
     @DubboReference
     private RemoteUserLogoutLogService remoteUserLogoutLogService;
 
-    @ApiOperation("根据用户ID查询用户信息")
-    @GetMapping("/userId")
+    @PreAuthorize("hasAuthority('OPEN-API:USERINFO')")
+    @ApiOperation("查询当前登录用户信息")
+    @GetMapping("/userInfo")
     @ApiImplicitParam(name = "Authorization", value = "认证token", required = true, dataType = "String",
             paramType = "header", defaultValue = "Bearer ")
-    public Result<UserInfoVO> userId(@RequestParam("userId") Long userId) {
-        return Result.success(CommonCloneUtil.objectClone(remoteUserInfoService.getByUserId(userId), UserInfoVO.class));
+    public Result<UserInfoVO> userInfo() {
+        return Result.success(CommonCloneUtil.objectClone(remoteUserInfoService.getByUserId(AuthContext.getAuthUser().getUserId()), UserInfoVO.class));
     }
 
-    @ApiOperation("根据用户ID查询用户登陆日志")
+    @PreAuthorize("hasAuthority('OPEN-API:USERLOG')")
+    @ApiOperation("查询当前登录用户登陆日志")
     @GetMapping("/page/userLoginLog")
     @ApiImplicitParam(name = "Authorization", value = "认证token", required = true, dataType = "String",
             paramType = "header", defaultValue = "Bearer ")
-    public PageResult<UserLoginLogVO> userLoginLog(@RequestParam("userId") Long userId, BasePageDTO pageDTO) {
+    public PageResult<UserLoginLogVO> userLoginLog(BasePageDTO pageDTO) {
         return PageResult.success(
                 CommonCloneUtil.remotePageClone(
-                        remoteUserLoginLogService.pageByUserId(userId, CommonCloneUtil.objectClone(pageDTO, BasePageBO.class)),
+                        remoteUserLoginLogService.pageByUserId(AuthContext.getAuthUser().getUserId(), CommonCloneUtil.objectClone(pageDTO, BasePageBO.class)),
                         UserLoginLogVO.class
                 )
         );
     }
 
-    @ApiOperation("根据用户ID查询用户登出日志")
+    @PreAuthorize("hasAuthority('OPEN-API:USERLOG')")
+    @ApiOperation("查询当前登录用户登出日志")
     @GetMapping("/page/userLogoutLog")
     @ApiImplicitParam(name = "Authorization", value = "认证token", required = true, dataType = "String",
             paramType = "header", defaultValue = "Bearer ")
-    public PageResult<UserLogoutLogVO> userLogoutLog(@RequestParam("userId") Long userId, BasePageDTO pageDTO) {
+    public PageResult<UserLogoutLogVO> userLogoutLog(BasePageDTO pageDTO) {
         return PageResult.success(
                 CommonCloneUtil.remotePageClone(
-                        remoteUserLogoutLogService.pageByUserId(userId, CommonCloneUtil.objectClone(pageDTO, BasePageBO.class)),
+                        remoteUserLogoutLogService.pageByUserId(AuthContext.getAuthUser().getUserId(), CommonCloneUtil.objectClone(pageDTO, BasePageBO.class)),
                         UserLogoutLogVO.class
                 )
         );

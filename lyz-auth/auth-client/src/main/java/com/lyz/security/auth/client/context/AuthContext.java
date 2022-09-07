@@ -1,8 +1,8 @@
 package com.lyz.security.auth.client.context;
 
 import com.google.common.base.Joiner;
-import com.google.common.collect.Lists;
 import com.lyz.security.auth.client.constant.SecurityClientConstant;
+import com.lyz.security.auth.client.user.AuthGrantedAuthority;
 import com.lyz.security.auth.client.user.AuthUserDetails;
 import com.lyz.security.auth.server.bo.AuthUser;
 import com.lyz.security.auth.server.bo.AuthUserLoginBO;
@@ -203,7 +203,7 @@ public class AuthContext implements ApplicationContextAware, EnvironmentAware, I
             return new AuthUserDetails(
                     authUser.getUsername(),
                     authUser.getPassword(),
-                    Lists.newArrayList(),
+                    CommonCloneUtil.listClone(authUser.getAuthorities(), AuthGrantedAuthority.class),
                     authUser.getUserId(),
                     authUser.getEmail(),
                     authUser.getMobile(),

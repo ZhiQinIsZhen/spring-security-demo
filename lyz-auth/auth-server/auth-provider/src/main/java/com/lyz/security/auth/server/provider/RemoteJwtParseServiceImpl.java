@@ -98,6 +98,7 @@ public class RemoteJwtParseServiceImpl implements RemoteJwtParseService {
                 .token(authToken)
                 .expiration(claims.getExpiration().getTime())
                 .applicationName(applicationName)
+                .authorities(authJwtDO.getIsAuthority() ? remoteAuthService.authorities(authUser) : Lists.newArrayList())
                 .build();
     }
 

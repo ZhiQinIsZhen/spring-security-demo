@@ -23,11 +23,11 @@ public class AuthExceptionHandleAdvice {
 
     @ExceptionHandler({BadCredentialsException.class, UsernameNotFoundException.class})
     public Result badCredentialsException(Exception exception) {
-        return Result.success(AuthExceptionCodeEnum.LOGIN_FAIL);
+        return Result.error(AuthExceptionCodeEnum.LOGIN_FAIL);
     }
 
     @ExceptionHandler({AccessDeniedException.class})
     public Result accessDeniedException(Exception exception) {
-        return Result.success(AuthExceptionCodeEnum.NO_RIGHT);
+        return Result.error(AuthExceptionCodeEnum.NO_RIGHT);
     }
 }

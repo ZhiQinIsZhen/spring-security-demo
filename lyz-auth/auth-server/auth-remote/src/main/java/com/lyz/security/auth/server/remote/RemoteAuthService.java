@@ -1,12 +1,11 @@
 package com.lyz.security.auth.server.remote;
 
-import com.lyz.security.auth.server.bo.AuthUser;
-import com.lyz.security.auth.server.bo.AuthUserLoginBO;
-import com.lyz.security.auth.server.bo.AuthUserLogoutBO;
-import com.lyz.security.auth.server.bo.AuthUserRegisterBO;
+import com.lyz.security.auth.server.bo.*;
 
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 注释:
@@ -49,4 +48,14 @@ public interface RemoteAuthService {
      * @return
      */
     Boolean logout(@NotNull AuthUserLogoutBO authUserLogoutBO);
+
+    /**
+     * 获取权限
+     *
+     * @param authUser
+     * @return
+     */
+    default List<AuthGrantedAuthorityBO> authorities(AuthUser authUser) {
+        return new ArrayList<>();
+    }
 }

@@ -2,10 +2,7 @@ package com.lyz.security.auth.server.provider;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.google.common.base.Splitter;
-import com.lyz.security.auth.server.bo.AuthUser;
-import com.lyz.security.auth.server.bo.AuthUserLoginBO;
-import com.lyz.security.auth.server.bo.AuthUserLogoutBO;
-import com.lyz.security.auth.server.bo.AuthUserRegisterBO;
+import com.lyz.security.auth.server.bo.*;
 import com.lyz.security.auth.server.constant.GenericServiceMethod;
 import com.lyz.security.auth.server.exception.AuthExceptionCodeEnum;
 import com.lyz.security.auth.server.exception.RemoteAuthServiceException;
@@ -160,5 +157,32 @@ public class RemoteAuthServiceImpl implements RemoteAuthService {
                 authApplicationDO.getDubboTimeout()
         );
         return GenericServiceUtil.invoke(GenericServiceMethod.LOGOUT.getMethod(), Boolean.class, genericService, authUserLogoutBO);
+    }
+
+    /**
+     * 获取权限
+     *
+     * @param authUser
+     * @return
+     */
+    @Override
+    public List<AuthGrantedAuthorityBO> authorities(@NotNull AuthUser authUser) {
+        if (StringUtils.isBlank(authUser.getApplicationName())) {
+            log.warn("获取权限错误，原因 : applicationName is blank");
+            return RemoteAuthService.super.authorities(authUser);
+        }
+        AuthApplicationDO authApplicationDO = authApplicationService.getOne(
+                Wrappers.lambdaQuery(AuthApplicationDO.builder().applicationName(authUser.getApplicationName()).build())
+        );
+        if (Objects.isNull(authApplicationDO)) {
+            return RemoteAuthService.super.authorities(authUser);
+        }
+        GenericService genericService = GenericServiceUtil.getByClassName(
+                RemoteAuthService.class,
+                authApplicationDO.getDubboVersion(),
+                authApplicationDO.getDubboGroup(),
+                authApplicationDO.getDubboTimeout()
+        );
+        return GenericServiceUtil.invokeList(GenericServiceMethod.AUTHORITIES.getMethod(), AuthGrantedAuthorityBO.class, genericService, authUser);
     }
 }

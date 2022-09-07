@@ -1,10 +1,8 @@
 package com.lyz.security.service.user.provider.auth;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.lyz.security.auth.server.bo.AuthUser;
-import com.lyz.security.auth.server.bo.AuthUserLoginBO;
-import com.lyz.security.auth.server.bo.AuthUserLogoutBO;
-import com.lyz.security.auth.server.bo.AuthUserRegisterBO;
+import com.google.common.collect.Lists;
+import com.lyz.security.auth.server.bo.*;
 import com.lyz.security.auth.server.constant.LoginType;
 import com.lyz.security.auth.server.exception.AuthExceptionCodeEnum;
 import com.lyz.security.auth.server.exception.RemoteAuthServiceException;
@@ -21,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -142,6 +141,17 @@ public class RemoteAuthServiceImpl implements RemoteAuthService {
         UserLogoutLogDO userLogoutLogDO = CommonCloneUtil.objectClone(authUserLogoutBO, UserLogoutLogDO.class);
         userLogoutLogDO.setLogoutTime(DateUtil.currentDate());
         return userLogoutLogService.save(userLogoutLogDO);
+    }
+
+    /**
+     * 获取权限
+     *
+     * @param authUser
+     * @return
+     */
+    @Override
+    public List<AuthGrantedAuthorityBO> authorities(AuthUser authUser) {
+        return Lists.newArrayList(AuthGrantedAuthorityBO.builder().applicationName("OPEN-API").authority("USERLOG").build());
     }
 
     /**
