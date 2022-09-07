@@ -6,6 +6,8 @@ import com.lyz.security.auth.server.bo.AuthUserLoginBO;
 import com.lyz.security.auth.server.bo.AuthUserLogoutBO;
 import com.lyz.security.auth.server.bo.AuthUserRegisterBO;
 import com.lyz.security.auth.server.constant.LoginType;
+import com.lyz.security.auth.server.exception.AuthExceptionCodeEnum;
+import com.lyz.security.auth.server.exception.RemoteAuthServiceException;
 import com.lyz.security.auth.server.remote.RemoteAuthService;
 import com.lyz.security.common.core.util.CommonCloneUtil;
 import com.lyz.security.common.util.DateUtil;
@@ -51,6 +53,14 @@ public class RemoteAuthServiceImpl implements RemoteAuthService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Boolean registry(AuthUserRegisterBO authUserRegisterBO) {
+        if (StringUtils.isNotBlank(authUserRegisterBO.getMobile())
+                && userAuthMobileService.count(Wrappers.lambdaQuery(UserAuthMobileDO.builder().mobile(authUserRegisterBO.getMobile()).build())) > 0) {
+            throw new RemoteAuthServiceException(AuthExceptionCodeEnum.MOBILE_EXIST);
+        }
+        if (StringUtils.isNotBlank(authUserRegisterBO.getEmail())
+                && userAuthEmailService.count(Wrappers.lambdaQuery(UserAuthEmailDO.builder().email(authUserRegisterBO.getEmail()).build())) > 0) {
+            throw new RemoteAuthServiceException(AuthExceptionCodeEnum.EMAIL_EXIST);
+        }
         UserInfoDO userInfoDO = CommonCloneUtil.objectClone(authUserRegisterBO, UserInfoDO.class);
         userInfoDO.setRegistryTime(DateUtil.currentDate());
         userInfoService.save(userInfoDO);

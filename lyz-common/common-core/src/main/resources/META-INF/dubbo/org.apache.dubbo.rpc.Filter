@@ -1,1 +1,2 @@
 remoteServiceExceptionFilter=com.lyz.security.common.core.filter.RemoteServiceExceptionFilter
+remoteGenericFilter=com.lyz.security.common.core.filter.RemoteGenericFilter

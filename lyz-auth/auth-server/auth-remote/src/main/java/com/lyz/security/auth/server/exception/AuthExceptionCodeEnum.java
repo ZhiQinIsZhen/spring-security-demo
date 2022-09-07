@@ -20,6 +20,9 @@ public enum AuthExceptionCodeEnum implements IExceptionCodeService {
     REGISTRY_ERROR("20004", "注册错误"),
     LOGIN_ERROR("20005", "登陆错误"),
     OTHERS_LOGIN("20006", "该账号已在其他地方登陆"),
+    MOBILE_EXIST("20007", "该手机号码已注册"),
+    EMAIL_EXIST("20008", "该邮箱地址已注册"),
+    REGISTER_ERROR("20009", "注册失败"),
     ;
 
     private String code;

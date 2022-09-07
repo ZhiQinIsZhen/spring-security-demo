@@ -14,8 +14,6 @@ import java.util.concurrent.ThreadLocalRandom;
 @UtilityClass
 public class RandomUtil {
 
-    private static ThreadLocalRandom random = ThreadLocalRandom.current();
-
     public static final String NUMBER_CODES = "0123456789";
     public static final String UP_CASE_LETTERS = "ABCDEFGHIGKLMNOPQRSTUVMXYZ";
     public static final String LW_CASE_LETTERS = "abcdefghigklmnopqrstuvmxyz";
@@ -29,7 +27,7 @@ public class RandomUtil {
     public static String randomInteger(int length) {
         StringBuffer sb = new StringBuffer();
         for (int i = 0; i < length; i++) {
-            sb.append(random.nextInt(10));
+            sb.append(ThreadLocalRandom.current().nextInt(10));
         }
         return sb.toString();
     }
@@ -51,6 +49,7 @@ public class RandomUtil {
         }
         String sourceStr = sb.toString();
         StringBuffer result = new StringBuffer(length);
+        ThreadLocalRandom random = ThreadLocalRandom.current();
         for (int i = 0; i < length; i++) {
             result.append(sourceStr.charAt(random.nextInt(sourceStr.length() - 1)));
         }

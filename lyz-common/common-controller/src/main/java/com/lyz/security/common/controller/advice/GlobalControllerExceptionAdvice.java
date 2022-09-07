@@ -65,6 +65,7 @@ public class GlobalControllerExceptionAdvice {
 
     @ExceptionHandler({RemoteServiceException.class})
     public Result remoteServiceException(RemoteServiceException exception) {
+        log.warn("has remoteServiceException", exception);
         return Result.error(exception.getCode(), exception.getMessage());
     }
 }
