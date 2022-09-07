@@ -3,6 +3,7 @@ package com.lyz.security.auth.server.bo;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -53,5 +54,5 @@ public class AuthUser implements Serializable {
 
     private Long expiration;
 
-    private List<AuthGrantedAuthorityBO> authorities;
+    private List<AuthGrantedAuthorityBO> authorities = new ArrayList<>();
 }
