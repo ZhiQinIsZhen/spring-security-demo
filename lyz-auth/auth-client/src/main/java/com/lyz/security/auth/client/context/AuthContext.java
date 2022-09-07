@@ -2,6 +2,7 @@ package com.lyz.security.auth.client.context;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
+import com.lyz.security.auth.client.constant.SecurityClientConstant;
 import com.lyz.security.auth.client.user.AuthUserDetails;
 import com.lyz.security.auth.server.bo.AuthUser;
 import com.lyz.security.auth.server.bo.AuthUserLoginBO;
@@ -17,7 +18,9 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -34,8 +37,9 @@ import java.util.Objects;
  * @date 2022/9/2 13:34
  */
 @Configuration
-public class AuthContext implements ApplicationContextAware, InitializingBean {
+public class AuthContext implements ApplicationContextAware, EnvironmentAware, InitializingBean {
 
+    private static Environment environment;
     private static ApplicationContext applicationContext;
     private static InheritableThreadLocal<AuthUser> innerContext = new InheritableThreadLocal<>();
     private static RemoteAuthService remoteAuthService;
@@ -79,6 +83,7 @@ public class AuthContext implements ApplicationContextAware, InitializingBean {
          * @return
          */
         public static Boolean registry(AuthUserRegisterBO authUserRegisterBO) {
+            authUserRegisterBO.setApplicationName(environment.getProperty(SecurityClientConstant.DUBBO_APPLICATION_NAME_PROPERTY));
             return remoteAuthService.registry(authUserRegisterBO);
         }
 
@@ -88,6 +93,7 @@ public class AuthContext implements ApplicationContextAware, InitializingBean {
          * @param authUserLoginBO
          */
         public static AuthUser login(AuthUserLoginBO authUserLoginBO) {
+            authUserLoginBO.setApplicationName(environment.getProperty(SecurityClientConstant.DUBBO_APPLICATION_NAME_PROPERTY));
             authUserLoginBO.setDevice(DeviceContext.getDevice(HttpServletContext.getRequest()).getType());
             authUserLoginBO.setType(PatternUtil.checkMobileEmail(authUserLoginBO.getLoginName()));
             authUserLoginBO.setLoginIp(HttpServletContext.getIpAddress(HttpServletContext.getRequest()));
@@ -224,5 +230,10 @@ public class AuthContext implements ApplicationContextAware, InitializingBean {
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
+    }
+
+    @Override
+    public void setEnvironment(Environment environment) {
+        this.environment = environment;
     }
 }
