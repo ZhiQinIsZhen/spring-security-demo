@@ -5,7 +5,10 @@ import com.lyz.security.auth.client.filter.JwtAuthenticationTokenFilter;
 import com.lyz.security.auth.client.handler.JwtAuthenticationEntryPoint;
 import com.lyz.security.auth.client.handler.RestfulAccessDeniedHandler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -15,6 +18,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -29,12 +33,20 @@ import javax.annotation.Resource;
  */
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class WebSecurityClientConfig extends WebSecurityConfigurerAdapter {
+public class WebSecurityClientConfig extends WebSecurityConfigurerAdapter implements EnvironmentAware {
+
+    private Environment environment;
 
     @Resource
     private PasswordEncoder passwordEncoder;
     @Resource
     private UserDetailsService userDetailsService;
+
+    @Bean
+    @ConditionalOnMissingBean(PasswordEncoder.class)
+    public PasswordEncoder passwordEncoder() {
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    }
 
     @Bean
     @Override
@@ -64,9 +76,16 @@ public class WebSecurityClientConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(AnonymousMappingConfig.getAnonymousMappings().toArray(new String[0])).permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .addFilterBefore(new JwtAuthenticationTokenFilter(SecurityClientConstant.DEFAULT_TOKEN_HEADER_KEY, userDetailsService), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(
+                        new JwtAuthenticationTokenFilter(SecurityClientConstant.DEFAULT_TOKEN_HEADER_KEY, environment.getProperty(SecurityClientConstant.DUBBO_APPLICATION_NAME_PROPERTY)),
+                        UsernamePasswordAuthenticationFilter.class)
                 .headers().cacheControl()
                 .and().frameOptions().sameOrigin();
 
+    }
+
+    @Override
+    public void setEnvironment(Environment environment) {
+        this.environment = environment;
     }
 }

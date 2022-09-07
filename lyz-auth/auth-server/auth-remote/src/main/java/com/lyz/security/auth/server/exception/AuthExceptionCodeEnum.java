@@ -16,9 +16,10 @@ public enum AuthExceptionCodeEnum implements IExceptionCodeService {
     NO_RIGHT("403", "暂无权限"),
     LOGIN_FAIL("20001", "用户名或者密码错误"),
     AUTHORIZATION_FAIL("20002", "认证失败"),
-    AUTHORIZATION_TIMEOUT("20003", "认证超时"),
+    AUTHORIZATION_TIMEOUT("20003", "认证过期"),
     REGISTRY_ERROR("20004", "注册错误"),
     LOGIN_ERROR("20005", "登陆错误"),
+    OTHERS_LOGIN("20006", "该账号已在其他地方登陆"),
     ;
 
     private String code;

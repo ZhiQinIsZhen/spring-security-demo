@@ -1,9 +1,12 @@
 package com.lyz.security.auth.server.remote;
 
+import com.lyz.security.auth.server.bo.AuthUser;
+import com.lyz.security.auth.server.bo.AuthUserLoginBO;
 import com.lyz.security.auth.server.bo.AuthUserLogoutBO;
 import com.lyz.security.auth.server.bo.AuthUserRegisterBO;
 
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 /**
  * 注释:
@@ -23,9 +26,21 @@ public interface RemoteAuthService {
     Boolean registry(AuthUserRegisterBO authUserRegisterBO);
 
     /**
-     * 登陆
+     * 根据登陆名查询用户信息
+     *
+     * @param username
+     * @param device
+     * @return
      */
-    void login();
+    AuthUser loadByUsername(String username, Integer device);
+
+    /**
+     * 登陆
+     *
+     * @param authUserLoginBO
+     * @return
+     */
+    Date login(AuthUserLoginBO authUserLoginBO);
 
     /**
      * 登出

@@ -1,23 +1,25 @@
 package com.lyz.security.service.user.provider.auth;
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.lyz.security.auth.server.bo.AuthUser;
+import com.lyz.security.auth.server.bo.AuthUserLoginBO;
 import com.lyz.security.auth.server.bo.AuthUserLogoutBO;
 import com.lyz.security.auth.server.bo.AuthUserRegisterBO;
+import com.lyz.security.auth.server.constant.LoginType;
 import com.lyz.security.auth.server.remote.RemoteAuthService;
 import com.lyz.security.common.core.util.CommonCloneUtil;
 import com.lyz.security.common.util.DateUtil;
-import com.lyz.security.service.user.model.UserAuthEmailDO;
-import com.lyz.security.service.user.model.UserAuthMobileDO;
-import com.lyz.security.service.user.model.UserInfoDO;
-import com.lyz.security.service.user.model.UserLogoutLogDO;
-import com.lyz.security.service.user.service.IUserAuthEmailService;
-import com.lyz.security.service.user.service.IUserAuthMobileService;
-import com.lyz.security.service.user.service.IUserInfoService;
-import com.lyz.security.service.user.service.IUserLogoutLogService;
+import com.lyz.security.common.util.PatternUtil;
+import com.lyz.security.service.user.model.*;
+import com.lyz.security.service.user.service.*;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.Date;
+import java.util.Objects;
 
 /**
  * 注释:
@@ -35,6 +37,8 @@ public class RemoteAuthServiceImpl implements RemoteAuthService {
     private IUserAuthMobileService userAuthMobileService;
     @Resource
     private IUserAuthEmailService userAuthEmailService;
+    @Resource
+    private IUserLoginLogService userLoginLogService;
     @Resource
     private IUserLogoutLogService userLogoutLogService;
 
@@ -71,9 +75,49 @@ public class RemoteAuthServiceImpl implements RemoteAuthService {
         return Boolean.TRUE;
     }
 
+    /**
+     * 根据登陆名查询用户信息
+     *
+     * @param username
+     * @param device
+     * @return
+     */
     @Override
-    public void login() {
+    public AuthUser loadByUsername(String username, Integer device) {
+        AuthUser authUser = AuthUser.builder().username(username).loginType(PatternUtil.checkMobileEmail(username)).build();
+        Long userId = getUserId(username, authUser);
+        if (Objects.isNull(userId)) {
+            return null;
+        }
+        UserInfoDO userInfoDO = userInfoService.getById(userId);
+        authUser.setUserId(userId);
+        authUser.setEmail(userInfoDO.getEmail());
+        authUser.setMobile(userInfoDO.getMobile());
+        authUser.setRegistryTime(userInfoDO.getRegistryTime());
+        authUser.setNickName(userInfoDO.getNickName());
+        authUser.setRealName(userInfoDO.getRealName());
+        authUser.setSalt(userInfoDO.getSalt());
+        authUser.setDevice(device);
+        Date lastLoginTime = userLoginLogService.lastLoginTime(userId, device);
+        Date lastLogoutTime = userLogoutLogService.lastLogoutTime(userId, device);
+        authUser.setCheckTime(ObjectUtils.max(lastLoginTime, lastLogoutTime));
+        return authUser;
+    }
 
+    /**
+     * 登陆
+     *
+     * @param authUserLoginBO
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Date login(AuthUserLoginBO authUserLoginBO) {
+        UserLoginLogDO userLoginLogDO = CommonCloneUtil.objectClone(authUserLoginBO, UserLoginLogDO.class);
+        userLoginLogDO.setLoginTime(DateUtil.currentDate());
+        userLoginLogService.save(userLoginLogDO);
+        //可能会有时间误差
+        return userLoginLogService.getById(userLoginLogDO.getId()).getLoginTime();
     }
 
     /**
@@ -88,5 +132,38 @@ public class RemoteAuthServiceImpl implements RemoteAuthService {
         UserLogoutLogDO userLogoutLogDO = CommonCloneUtil.objectClone(authUserLogoutBO, UserLogoutLogDO.class);
         userLogoutLogDO.setLogoutTime(DateUtil.currentDate());
         return userLogoutLogService.save(userLogoutLogDO);
+    }
+
+    /**
+     * 根据username获取对应用户id
+     *
+     * @param username
+     * @param authUser
+     * @return
+     */
+    private Long getUserId(String username, AuthUser authUser) {
+        int type = PatternUtil.checkMobileEmail(username);
+        authUser.setLoginType(type);
+        if (type == LoginType.MOBILE.getType()) {
+            UserAuthMobileDO userAuthMobileDO = userAuthMobileService.getOne(
+                    Wrappers.lambdaQuery(UserAuthMobileDO.builder().mobile(username).build())
+            );
+            if (Objects.isNull(userAuthMobileDO)) {
+                return null;
+            }
+            authUser.setPassword(userAuthMobileDO.getPassword());
+            return userAuthMobileDO.getUserId();
+        }
+        if (type == LoginType.EMAIL.getType()) {
+            UserAuthEmailDO userAuthEmailDO = userAuthEmailService.getOne(
+                    Wrappers.lambdaQuery(UserAuthEmailDO.builder().email(username).build())
+            );
+            if (Objects.isNull(userAuthEmailDO)) {
+                return null;
+            }
+            authUser.setPassword(userAuthEmailDO.getPassword());
+            return userAuthEmailDO.getUserId();
+        }
+        return null;
     }
 }

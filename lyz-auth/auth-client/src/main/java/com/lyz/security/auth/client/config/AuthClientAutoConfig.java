@@ -1,13 +1,13 @@
 package com.lyz.security.auth.client.config;
 
 import com.lyz.security.auth.server.remote.RemoteAuthService;
+import com.lyz.security.auth.server.remote.RemoteJwtParseService;
 import org.apache.dubbo.config.annotation.DubboReference;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.PasswordEncoder;
+
+import javax.annotation.Resource;
 
 /**
  * 注释:
@@ -20,17 +20,21 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @ComponentScan(value = {"com.lyz.security.auth.client"})
 public class AuthClientAutoConfig {
 
+    @Resource
+    private WebSecurityClientConfig webSecurityClientConfig;
+
     @DubboReference(group = "auth")
     private RemoteAuthService remoteAuthService;
+    @DubboReference(group = "auth")
+    private RemoteJwtParseService remoteJwtParseService;
 
     @Bean("remoteAuthService-auth")
     public RemoteAuthService remoteAuthService() {
         return remoteAuthService;
     }
 
-    @Bean
-    @ConditionalOnMissingBean(PasswordEncoder.class)
-    public PasswordEncoder passwordEncoder() {
-        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    @Bean("remoteJwtParseService-auth")
+    public RemoteJwtParseService remoteJwtParseService() {
+        return remoteJwtParseService;
     }
 }

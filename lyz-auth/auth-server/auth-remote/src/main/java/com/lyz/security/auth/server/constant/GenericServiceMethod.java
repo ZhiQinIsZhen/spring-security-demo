@@ -17,6 +17,7 @@ public enum GenericServiceMethod {
     REGISTRY("registry", "注册"),
     LOGIN("login", "登陆"),
     LOGOUT("logout", "登出"),
+    LOAD_BY_USERNAME("loadByUsername", "根据登陆名查询用户信息"),
     ;
 
     private String method;

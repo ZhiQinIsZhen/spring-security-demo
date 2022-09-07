@@ -1,10 +1,12 @@
 package com.lyz.security.auth.server.util;
 
+import com.lyz.security.auth.server.exception.RemoteAuthServiceException;
+import com.lyz.security.common.core.util.CommonCloneUtil;
+import com.lyz.security.common.remote.exception.CommonExceptionCodeEnum;
 import lombok.experimental.UtilityClass;
 import org.apache.dubbo.config.ReferenceConfig;
 import org.apache.dubbo.rpc.service.GenericService;
 
-import java.util.Arrays;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
@@ -67,7 +69,7 @@ public class GenericServiceUtil {
      * @param <T>
      * @return
      */
-    public static <T> T invoke(String methodName, GenericService genericService, Object... os) {
+    public static <T> T invoke(String methodName, Class<T> targetClass, GenericService genericService, Object... os) {
         //获取入参的类型
         String[] paramTypes = null;
         if (Objects.nonNull(os)) {
@@ -76,6 +78,14 @@ public class GenericServiceUtil {
                 paramTypes[i] = os[i].getClass().getName();
             }
         }
-        return (T) genericService.$invoke(methodName, paramTypes, os);
+        Object result = genericService.$invoke(methodName, paramTypes, os);
+        if (result instanceof Map) {
+            try {
+                return CommonCloneUtil.mapToBean((Map<String, Object>) result, targetClass);
+            } catch (Exception e) {
+                throw new RemoteAuthServiceException(CommonExceptionCodeEnum.REMOTE_SERVICE_FAIL);
+            }
+        }
+        return (T) result;
     }
 }

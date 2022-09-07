@@ -8,12 +8,15 @@ import com.lyz.security.common.core.cglib.SimpleBeanCopier;
 import com.lyz.security.common.core.constant.CommonCoreConstant;
 import com.lyz.security.common.remote.page.RemotePage;
 import lombok.experimental.UtilityClass;
+import org.springframework.beans.BeanUtils;
 import org.springframework.util.CollectionUtils;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -124,6 +127,25 @@ public class CommonCloneUtil {
                 page.getSize(),
                 page.hasNext()
         );
+    }
+
+    public static <T> T mapToBean(Map<String, Object> map, Class<T> targetClass) throws Exception {
+        if (Objects.isNull(map)) {
+            return null;
+        }
+        Field[] declaredFields = targetClass.getDeclaredFields();
+        T target = BeanUtils.instantiateClass(targetClass);
+        String fieldName;
+        Method method;
+        for (Field field : declaredFields) {
+            fieldName = field.getName();
+            if (map.containsKey(fieldName) && map.get(fieldName) != null) {
+                fieldName = fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
+                method = targetClass.getMethod("set" + fieldName, field.getType());
+                method.invoke(target,  map.get(field.getName()));
+            }
+        }
+        return target;
     }
 
     /**

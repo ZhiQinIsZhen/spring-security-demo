@@ -26,6 +26,8 @@ public class PatternUtil {
      */
     public static final String PHONE_REG = "^1(3|4|5|7|8|9)\\d{9}$";
 
+    public static final String PASSWORD_STRONG = "^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,20}$";
+
     /**
      * 匹配手机
      *

@@ -1,4 +1,4 @@
-package com.lyz.security.auth.client;
+package com.lyz.security.auth.server.bo;
 
 import lombok.*;
 
@@ -23,7 +23,13 @@ public class AuthUser implements Serializable {
 
     private Long userId;
 
-    private String loginName;
+    private String username;
+
+    private String password;
+
+    private Integer loginType;
+
+    private Integer device;
 
     private String realName;
 
@@ -42,4 +48,8 @@ public class AuthUser implements Serializable {
     private Date checkTime;
 
     private List<Integer> roleIds;
+
+    private String token;
+
+    private Long expiration;
 }
