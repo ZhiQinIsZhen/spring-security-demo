@@ -30,10 +30,7 @@ public class GenericServiceUtil {
     private static final Map<String, GenericService> GENERIC_SERVICE_MAP = new ConcurrentHashMap<>(64);
 
     /**
-     * 获取dubbo的GenericService
-     * dk1.8 ConcurrentHashMap.computeIfAbsent有死循环的可能性
-     * 所以在此基础上又加了一把单例锁
-     * 如果升级到9以上，可以优化为直接使用ConcurrentHashMap.computeIfAbsent方法
+     * 获取GenericService
      *
      * @param className
      * @param version
