@@ -62,6 +62,6 @@ CREATE TABLE `user_authority` (
                                   `is_deleted` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否删除 | 0、未删除 1、已删除',
                                   `version` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '版本号',
                                   PRIMARY KEY (`id`) USING BTREE,
-                                  UNIQUE KEY `uniq_user_id_role_id` (`user_id`,`role_id`) USING BTREE,
+                                  UNIQUE KEY `uniq_user_id_authority_id` (`user_id`,`authority_id`) USING BTREE,
                                   KEY `idx_user_id_application_name` (`user_id`,`application_name`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户权限表';

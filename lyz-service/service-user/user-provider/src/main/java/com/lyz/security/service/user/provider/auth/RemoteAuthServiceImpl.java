@@ -1,7 +1,6 @@
 package com.lyz.security.service.user.provider.auth;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.google.common.collect.Lists;
 import com.lyz.security.auth.server.bo.*;
 import com.lyz.security.auth.server.constant.LoginType;
 import com.lyz.security.auth.server.exception.AuthExceptionCodeEnum;
@@ -42,6 +41,8 @@ public class RemoteAuthServiceImpl implements RemoteAuthService {
     private IUserLoginLogService userLoginLogService;
     @Resource
     private IUserLogoutLogService userLogoutLogService;
+    @Resource
+    private IUserAuthorityService userAuthorityService;
 
     /**
      * 用户注册
@@ -151,7 +152,11 @@ public class RemoteAuthServiceImpl implements RemoteAuthService {
      */
     @Override
     public List<AuthGrantedAuthorityBO> authorities(AuthUser authUser) {
-        return Lists.newArrayList(AuthGrantedAuthorityBO.builder().applicationName("OPEN-API").authority("USERLOG").build());
+        List<UserAuthorityDO> list = userAuthorityService.list(
+                Wrappers.lambdaQuery(UserAuthorityDO.builder().userId(authUser.getUserId()).applicationName(authUser.getApplicationName())
+                        .build())
+        );
+        return CommonCloneUtil.listClone(list, AuthGrantedAuthorityBO.class);
     }
 
     /**
