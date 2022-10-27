@@ -28,7 +28,7 @@ import java.util.Objects;
  * @version 1.0.0
  * @date 2022/9/2 15:12
  */
-@DubboService(group = "user")
+@DubboService
 public class RemoteAuthServiceImpl implements RemoteAuthService {
 
     @Resource
