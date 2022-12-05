@@ -12,11 +12,11 @@ import org.apache.dubbo.rpc.cluster.RouterFactory;
  * @version 1.0.0
  * @date 2022/10/13 9:54
  */
-@Activate(order = 300)
+@Activate(order = 1)
 public class GroupRouterFactory implements RouterFactory {
 
     @Override
     public Router getRouter(URL url) {
-        return new GroupInvokersSelector();
+        return new GroupInvokersSelector(url);
     }
 }

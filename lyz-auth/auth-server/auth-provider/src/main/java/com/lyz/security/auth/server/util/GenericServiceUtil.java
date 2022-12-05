@@ -36,9 +36,10 @@ public class GenericServiceUtil {
      * @param version
      * @param group
      * @param timeout
+     * @param parameters
      * @return
      */
-    public static GenericService getByClassName(String className, String version, String group, Integer timeout) {
+    public static GenericService getByClassName(String className, String version, String group, Integer timeout, Map<String, String> parameters) {
         if (!GENERIC_SERVICE_MAP.containsKey(className)) {
             synchronized (LOCK) {
                 if (!GENERIC_SERVICE_MAP.containsKey(className)) {
@@ -50,11 +51,16 @@ public class GenericServiceUtil {
                     reference.setGeneric(true);
                     reference.setGroup(group);
                     reference.setTimeout(timeout);
+                    reference.setParameters(parameters);
                     GENERIC_SERVICE_MAP.put(className, reference.get());
                 }
             }
         }
         return GENERIC_SERVICE_MAP.get(className);
+    }
+
+    public static GenericService getByClassName(String className, String version, String group, Integer timeout) {
+        return getByClassName(className, version, group, timeout, null);
     }
 
     public static GenericService getByClassName(Class clazz, String version, String group, Integer timeout) {

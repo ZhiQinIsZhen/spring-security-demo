@@ -35,4 +35,6 @@ public interface SecurityClientConstant {
     String SPRING_APPLICATION_NAME_PROPERTY = "spring.application.name";
     String DUBBO_APPLICATION_ID_PROPERTY = "dubbo.application.id";
     String DUBBO_APPLICATION_NAME_PROPERTY = "dubbo.application.name";
+
+    String DUBBO_AUTH_GROUP = "authgroup";
 }

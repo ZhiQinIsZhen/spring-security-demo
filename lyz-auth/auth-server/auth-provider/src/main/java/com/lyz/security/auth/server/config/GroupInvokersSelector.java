@@ -1,5 +1,7 @@
 package com.lyz.security.auth.server.config;
 
+import com.lyz.security.auth.client.constant.SecurityClientConstant;
+import com.lyz.security.auth.server.util.AuthGroupContext;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.common.URL;
 import org.apache.dubbo.common.utils.CollectionUtils;
@@ -25,17 +27,15 @@ public class GroupInvokersSelector extends AbstractRouter {
         super(url);
     }
 
-    public GroupInvokersSelector() {
-    }
-
     @Override
     public <T> RouterResult<Invoker<T>> route(List<Invoker<T>> invokers, URL url, Invocation invocation, boolean needToPrintMessage) throws RpcException {
-        if (CollectionUtils.isEmpty(invokers)) {
-            return super.route(invokers, url, invocation, needToPrintMessage);
+        String authGroup = AuthGroupContext.getAuthGroup();
+        if (StringUtils.isBlank(authGroup) || CollectionUtils.isEmpty(invokers)) {
+            return new RouterResult(invokers);
         }
         List<Invoker<T>> list = invokers.stream()
-                .filter((it) -> it.getUrl().getGroup(StringUtils.EMPTY).equals("user"))
+                .filter((it) -> it.getUrl().getParameter(SecurityClientConstant.DUBBO_AUTH_GROUP, StringUtils.EMPTY).equals(authGroup))
                 .collect(Collectors.toList());
-        return super.route(list, url, invocation, needToPrintMessage);
+        return new RouterResult(list);
     }
 }
