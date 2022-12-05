@@ -5,11 +5,14 @@ import com.lyz.security.auth.server.util.AuthGroupContext;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.common.URL;
 import org.apache.dubbo.common.utils.CollectionUtils;
+import org.apache.dubbo.common.utils.Holder;
 import org.apache.dubbo.rpc.Invocation;
 import org.apache.dubbo.rpc.Invoker;
 import org.apache.dubbo.rpc.RpcException;
-import org.apache.dubbo.rpc.cluster.router.AbstractRouter;
 import org.apache.dubbo.rpc.cluster.router.RouterResult;
+import org.apache.dubbo.rpc.cluster.router.RouterSnapshotNode;
+import org.apache.dubbo.rpc.cluster.router.state.AbstractStateRouter;
+import org.apache.dubbo.rpc.cluster.router.state.BitList;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,24 +22,23 @@ import java.util.stream.Collectors;
  *
  * @author liyangzhen
  * @version 1.0.0
- * @date 2022/10/13 9:44
+ * @date 2022/12/5 13:50
  */
-@Deprecated
-public class GroupInvokersSelector extends AbstractRouter {
+public class GroupStateRouter<T> extends AbstractStateRouter<T> {
 
-    public GroupInvokersSelector(URL url) {
+    public GroupStateRouter(URL url) {
         super(url);
     }
 
     @Override
-    public <T> RouterResult<Invoker<T>> route(List<Invoker<T>> invokers, URL url, Invocation invocation, boolean needToPrintMessage) throws RpcException {
+    protected BitList<Invoker<T>> doRoute(BitList<Invoker<T>> invokers, URL url, Invocation invocation, boolean needToPrintMessage, Holder<RouterSnapshotNode<T>> routerSnapshotNodeHolder, Holder<String> messageHolder) throws RpcException {
         String authGroup = AuthGroupContext.getAuthGroup();
         if (StringUtils.isBlank(authGroup) || CollectionUtils.isEmpty(invokers)) {
-            return new RouterResult(invokers);
+            return invokers;
         }
         List<Invoker<T>> list = invokers.stream()
                 .filter((it) -> it.getUrl().getParameter(SecurityClientConstant.DUBBO_AUTH_GROUP, StringUtils.EMPTY).equals(authGroup))
                 .collect(Collectors.toList());
-        return new RouterResult(list);
+        return new BitList<>(list);
     }
 }

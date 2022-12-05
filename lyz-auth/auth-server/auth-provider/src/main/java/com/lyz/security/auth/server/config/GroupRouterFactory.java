@@ -12,6 +12,7 @@ import org.apache.dubbo.rpc.cluster.RouterFactory;
  * @version 1.0.0
  * @date 2022/10/13 9:54
  */
+@Deprecated
 @Activate(order = 1)
 public class GroupRouterFactory implements RouterFactory {
 
