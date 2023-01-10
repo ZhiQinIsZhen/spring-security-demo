@@ -19,7 +19,6 @@ import java.util.Objects;
  * @version 1.0.0
  * @date 2023/1/9 16:34
  */
-
 public class JsonTrimDeserializer extends JsonDeserializer<String> implements ContextualDeserializer {
 
     private Trim annotation;
