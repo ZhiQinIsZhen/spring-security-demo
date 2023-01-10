@@ -7,27 +7,228 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="dubbo-3.x-conflict-patch" />
+        <module name="tomcat-10x-plugin" />
+        <module name="apm-toolkit-micrometer-registry" />
+        <module name="apm-tomcat-thread-pool-plugin" />
+        <module name="apm-toolkit-opentracing" />
+        <module name="user-remote" />
+        <module name="apm-springmvc-annotation-commons" />
+        <module name="spring-commons" />
+        <module name="apm-vertx-core-3.x-plugin" />
+        <module name="apm-netty-socketio-plugin" />
+        <module name="apm-toolkit-trace" />
+        <module name="apm-toolkit-webflux" />
+        <module name="auth-provider" />
+        <module name="open-api" />
+        <module name="apm-spring-concurrent-util-4.x-plugin (1)" />
+        <module name="auth-client" />
+        <module name="apm-springmvc-annotation-5.x-plugin" />
+        <module name="apm-agent-core" />
+        <module name="java-agent-util" />
+        <module name="apm-toolkit-logback-1.x" />
+        <module name="apm-agent" />
+        <module name="user-dao" />
+        <module name="user-biz" />
+        <module name="apm-dubbo-3.x-plugin" />
+        <module name="tomcat-7.x-8.x-plugin" />
+        <module name="common-controller" />
+        <module name="apm-springmvc-annotation-3.x-plugin" />
         <module name="common-remote" />
+        <module name="apm-spring-core-patch" />
         <module name="auth-dao" />
         <module name="common-util" />
         <module name="auth-biz" />
-        <module name="user-remote" />
-        <module name="open-api" />
-        <module name="auth-provider" />
-        <module name="auth-client" />
+        <module name="apm-spring-cloud-feign-1.x-plugin" />
+        <module name="apm-vertx-core-4.x-plugin" />
+        <module name="apm-spring-async-annotation-plugin" />
+        <module name="apm-toolkit-kafka" />
+        <module name="apm-resttemplate-4.3.x-plugin" />
+        <module name="apm-toolkit-meter" />
+        <module name="apm-xmemcached-2.x-plugin" />
         <module name="auth-remote" />
+        <module name="logger-plugin" />
+        <module name="java-agent-datacarrier" />
         <module name="common-dao" />
+        <module name="apm-toolkit-log4j-2.x" />
+        <module name="apm-toolkit-log4j-1.x" />
         <module name="user-provider" />
-        <module name="user-dao" />
-        <module name="user-biz" />
+        <module name="jdk-thread-plugin" />
         <module name="common-core" />
-        <module name="common-controller" />
+      </profile>
+      <profile name="Annotation profile for concurrent-util-4.x-plugin" enabled="true">
+        <sourceOutputDir name="../../../../target/generated-sources/annotations" />
+        <sourceTestOutputDir name="../../../../target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="apm-spring-concurrent-util-4.x-plugin" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="apm-activemq-5.x-plugin" target="1.8" />
+      <module name="apm-armeria-0.84.x-plugin" target="1.8" />
+      <module name="apm-armeria-0.85.x-plugin" target="1.8" />
+      <module name="apm-asynchttpclient-2.x-plugin" target="1.8" />
+      <module name="apm-avro-plugin" target="1.8" />
+      <module name="apm-canal-1.x-plugin" target="1.8" />
+      <module name="apm-cassandra-java-driver-3.x-plugin" target="1.8" />
+      <module name="apm-clickhouse-0.3.x-plugin" target="1.8" />
+      <module name="apm-customize-enhance-plugin" target="1.8" />
+      <module name="apm-cxf-3.x-plugin" target="1.8" />
+      <module name="apm-dubbo-2.7.x-plugin" target="1.8" />
+      <module name="apm-dubbo-plugin" target="1.8" />
+      <module name="apm-ehcache-2.x-plugin" target="1.8" />
+      <module name="apm-elastic-job-2.x-plugin" target="1.8" />
+      <module name="apm-elasticjob-3.x-plugin" target="1.8" />
+      <module name="apm-elasticsearch-5.x-plugin" target="1.8" />
+      <module name="apm-elasticsearch-6.x-plugin" target="1.8" />
+      <module name="apm-elasticsearch-7.x-plugin" target="1.8" />
+      <module name="apm-fastjson-1.x-plugin" target="1.8" />
+      <module name="apm-feign-default-http-9.x-plugin" target="1.8" />
+      <module name="apm-finagle-6.25.x-plugin" target="1.8" />
+      <module name="apm-grpc-1.x-plugin" target="1.8" />
+      <module name="apm-gson-2.x-plugin" target="1.8" />
+      <module name="apm-guava-cache-plugin" target="1.8" />
+      <module name="apm-guava-eventbus-plugin" target="1.8" />
+      <module name="apm-h2-1.x-plugin" target="1.8" />
+      <module name="apm-hbase-1.x-2.x-plugin" target="1.8" />
+      <module name="apm-hikaricp-3.x-4.x-plugin" target="1.8" />
+      <module name="apm-httpasyncclient-4.x-plugin" target="1.8" />
+      <module name="apm-httpclient-3.x-plugin" target="1.8" />
+      <module name="apm-httpClient-4.x-plugin" target="1.8" />
+      <module name="apm-httpclient-5.x-plugin" target="1.8" />
+      <module name="apm-httpclient-commons" target="1.8" />
+      <module name="apm-hutool-http-5.x-plugin" target="1.8" />
+      <module name="apm-hystrix-1.x-plugin" target="1.8" />
+      <module name="apm-impala-jdbc-2.6.x-plugin" target="1.8" />
+      <module name="apm-influxdb-2.x-plugin" target="1.8" />
+      <module name="apm-jackson-2.x-plugin" target="1.8" />
+      <module name="apm-jdbc-commons" target="1.8" />
+      <module name="apm-jdk-http-plugin" target="1.8" />
+      <module name="apm-jdk-threading-plugin" target="1.8" />
+      <module name="apm-jdk-threadpool-plugin" target="1.8" />
+      <module name="apm-jetty-client-9.0-plugin" target="1.8" />
+      <module name="apm-jetty-client-9.x-plugin" target="1.8" />
+      <module name="apm-jetty-server-9.x-plugin" target="1.8" />
+      <module name="apm-kafka-commons" target="1.8" />
+      <module name="apm-kafka-plugin" target="1.8" />
+      <module name="apm-kotlin-coroutine-plugin" target="1.8" />
+      <module name="apm-kylin-jdbc-2.6.x-3.x-4.x-plugin" target="1.8" />
+      <module name="apm-lettuce-5.x-plugin" target="1.8" />
+      <module name="apm-light4j-plugin" target="1.8" />
+      <module name="apm-mariadb-2.x-plugin" target="1.8" />
+      <module name="apm-mongodb-2.x-plugin" target="1.8" />
+      <module name="apm-mongodb-3.x-plugin" target="1.8" />
+      <module name="apm-mongodb-4.x-plugin" target="1.8" />
+      <module name="apm-mssql-commons" target="1.8" />
+      <module name="apm-mssql-jdbc-plugin" target="1.8" />
+      <module name="apm-mssql-jtds-1.x-plugin" target="1.8" />
+      <module name="apm-mybatis-3.x-plugin" target="1.8" />
+      <module name="apm-mysql-5.x-plugin" target="1.8" />
+      <module name="apm-mysql-6.x-plugin" target="1.8" />
+      <module name="apm-mysql-8.x-plugin" target="1.8" />
+      <module name="apm-mysql-commons" target="1.8" />
+      <module name="apm-neo4j-4.x-plugin" target="1.8" />
+      <module name="apm-nutz-http-1.x-plugin" target="1.8" />
+      <module name="apm-nutz-mvc-annotation-1.x-plugin" target="1.8" />
+      <module name="apm-okhttp-3.x-plugin" target="1.8" />
+      <module name="apm-okhttp-4.x-plugin" target="1.8" />
+      <module name="apm-okhttp-common" target="1.8" />
+      <module name="apm-play-2.x-plugin" target="1.8" />
+      <module name="apm-postgresql-8.x-plugin" target="1.8" />
+      <module name="apm-pulsar-2.2-2.7-plugin" target="1.8" />
+      <module name="apm-pulsar-2.8.x-plugin" target="1.8" />
+      <module name="apm-pulsar-common" target="1.8" />
+      <module name="apm-quartz-scheduler-2.x-plugin" target="1.8" />
+      <module name="apm-quasar-plugin" target="1.8" />
+      <module name="apm-rabbitmq-5.x-plugin" target="1.8" />
+      <module name="apm-redisson-3.x-plugin" target="1.8" />
+      <module name="apm-rocketmq-3.x-plugin" target="1.8" />
+      <module name="apm-rocketmq-4.x-plugin" target="1.8" />
+      <module name="apm-sentinel-1.x-plugin" target="1.8" />
+      <module name="apm-servicecomb-java-chassis-2.x-plugin" target="1.8" />
+      <module name="apm-sharding-sphere-3.x-plugin" target="1.8" />
+      <module name="apm-sharding-sphere-4.1.0-plugin" target="1.8" />
+      <module name="apm-shardingsphere-4.0.x-plugin" target="1.8" />
+      <module name="apm-shardingsphere-5.0.0-plugin" target="1.8" />
+      <module name="apm-shenyu-2.4.x-plugin" target="1.8" />
+      <module name="apm-solrj-7.x-plugin" target="1.8" />
+      <module name="apm-spring-annotation-plugin" target="1.8" />
+      <module name="apm-spring-cloud-feign-2.x-plugin" target="1.8" />
+      <module name="apm-spring-cloud-gateway-2.0.x-plugin" target="1.8" />
+      <module name="apm-spring-cloud-gateway-2.1.x-plugin" target="1.8" />
+      <module name="apm-spring-cloud-gateway-3.x-plugin" target="1.8" />
+      <module name="apm-spring-kafka-1.x-plugin" target="1.8" />
+      <module name="apm-spring-kafka-2.x-plugin" target="1.8" />
+      <module name="apm-spring-scheduled-annotation-plugin" target="1.8" />
+      <module name="apm-spring-tx-plugin" target="1.8" />
+      <module name="apm-spring-webflux-5.x-plugin" target="1.8" />
+      <module name="apm-springmvc-annotation-4.x-plugin" target="1.8" />
+      <module name="apm-spymemcached-2.x-plugin" target="1.8" />
+      <module name="apm-struts2-2.x-plugin" target="1.8" />
+      <module name="apm-test-tools" target="1.8" />
+      <module name="apm-toolkit-activation" target="1.8" />
+      <module name="apm-toolkit-kafka-activation" target="1.8" />
+      <module name="apm-toolkit-log4j-1.x-activation" target="1.8" />
+      <module name="apm-toolkit-log4j-2.x-activation" target="1.8" />
+      <module name="apm-toolkit-logback-1.x-activation" target="1.8" />
+      <module name="apm-toolkit-logging-common" target="1.8" />
+      <module name="apm-toolkit-meter-activation" target="1.8" />
+      <module name="apm-toolkit-opentracing-activation" target="1.8" />
+      <module name="apm-toolkit-trace-activation" target="1.8" />
+      <module name="apm-toolkit-webflux-activation" target="1.8" />
+      <module name="apm-trace-ignore-plugin" target="1.8" />
+      <module name="apm-undertow-2.x-plugin" target="1.8" />
+      <module name="apm-undertow-worker-thread-pool-plugin" target="1.8" />
+      <module name="apm-xxl-job-2.x-plugin" target="1.8" />
+      <module name="apm-zookeeper-3.4.x-plugin" target="1.8" />
       <module name="auth-core" target="8" />
+      <module name="baidu-brpc-3.x-plugin" target="1.8" />
+      <module name="baidu-brpc-plugin" target="1.8" />
+      <module name="dbcp-2.x-plugin" target="1.8" />
+      <module name="druid-1.x-plugin" target="1.8" />
+      <module name="dubbo-2.7.x-conflict-patch" target="1.8" />
+      <module name="dubbo-conflict-patch" target="1.8" />
+      <module name="graphql-12.x-15.x-plugin" target="1.8" />
+      <module name="graphql-16plus-plugin" target="1.8" />
+      <module name="graphql-8.x-plugin" target="1.8" />
+      <module name="graphql-9.x-plugin" target="1.8" />
+      <module name="graphql-plugin" target="1.8" />
+      <module name="hutool-plugins" target="1.8" />
+      <module name="jdk-threading-plugin" target="1.8" />
+      <module name="jdk-threadpool-plugin" target="1.8" />
+      <module name="jedis-2.x-3.x-plugin" target="1.8" />
+      <module name="jedis-4.x-plugin" target="1.8" />
+      <module name="jedis-plugins" target="1.8" />
+      <module name="jetty-plugins" target="1.8" />
+      <module name="jsonrpc4j-1.x-plugin" target="1.8" />
+      <module name="kafka-reporter-plugin" target="1.8" />
+      <module name="light4j-plugins" target="1.8" />
       <module name="lyz-security" target="8" />
+      <module name="lyz-thread-plugin" target="1.8" />
+      <module name="micronaut-http-client-plugin" target="1.8" />
+      <module name="micronaut-http-server-plugin" target="1.8" />
+      <module name="micronaut-plugins" target="1.8" />
+      <module name="motan-plugin" target="1.8" />
+      <module name="nats-2.14.x-2.15.x-plugin" target="1.8" />
+      <module name="netflix-plugins" target="1.8" />
+      <module name="nutz-plugins" target="1.8" />
+      <module name="okhttp-2.x-plugin" target="1.8" />
+      <module name="optional-plugins" target="1.8" />
+      <module name="optional-reporter-plugins" target="1.8" />
+      <module name="optional-spring-cloud" target="1.8" />
+      <module name="optional-spring-plugins" target="1.8" />
+      <module name="resteasy-plugin" target="1.8" />
+      <module name="resteasy-server-3.x-plugin" target="1.8" />
+      <module name="resteasy-server-4.x-plugin" target="1.8" />
       <module name="security-core" target="8" />
+      <module name="servicecomb-plugin" target="1.8" />
+      <module name="shardingsphere-plugins" target="1.8" />
+      <module name="sofa-rpc-plugin" target="1.8" />
+      <module name="spring-cloud" target="1.8" />
+      <module name="spring-webflux-5.x-webclient-plugin" target="1.8" />
+      <module name="thrift-plugin" target="1.8" />
+      <module name="trace-sampler-cpu-policy-plugin" target="1.8" />
+      <module name="undertow-plugins" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

@@ -5,10 +5,26 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$USER_HOME$/Desktop/github/skywalking-java/pom.xml" />
+        <option value="$USER_HOME$/Desktop/github/skywalking-java/apm-application-toolkit/apm-toolkit-kafka/pom.xml" />
+        <option value="$USER_HOME$/Desktop/github/skywalking-java/apm-sniffer/apm-sdk-plugin/graphql-plugin/pom.xml" />
+        <option value="$USER_HOME$/Desktop/github/skywalking-java/apm-sniffer/apm-sdk-plugin/xmemcached-2.x-plugin/pom.xml" />
+        <option value="$USER_HOME$/Desktop/github/skywalking-java/apm-sniffer/apm-sdk-plugin/vertx-plugins/pom.xml" />
+        <option value="$USER_HOME$/Desktop/github/skywalking-java/apm-sniffer/apm-sdk-plugin/resteasy-plugin/pom.xml" />
+        <option value="$USER_HOME$/Desktop/github/skywalking-java/apm-sniffer/apm-sdk-plugin/hutool-plugins/pom.xml" />
+        <option value="$USER_HOME$/Desktop/github/skywalking-java/apm-sniffer/apm-sdk-plugin/jedis-plugins/pom.xml" />
+        <option value="$USER_HOME$/Desktop/github/skywalking-java/apm-sniffer/apm-sdk-plugin/spring-plugins/concurrent-util-4.x-plugin/pom.xml" />
+        <option value="$USER_HOME$/Desktop/github/skywalking-java/apm-sniffer/apm-sdk-plugin/spring-plugins/concurrent-util-4.x-plugin/dependency-reduced-pom.xml" />
+        <option value="$USER_HOME$/Desktop/github/skywalking-java/apm-sniffer/apm-sdk-plugin/spring-plugins/spring-cloud/netflix-plugins/spring-cloud-feign-1.x-plugin/pom.xml" />
+        <option value="$USER_HOME$/Desktop/github/skywalking-java/apm-sniffer/apm-sdk-plugin/spring-plugins/mvc-annotation-3.x-plugin/pom.xml" />
+        <option value="$USER_HOME$/Desktop/github/skywalking-java/apm-sniffer/bootstrap-plugins/pom.xml" />
+        <option value="$USER_HOME$/Desktop/github/skywalking-java/apm-sniffer/optional-reporter-plugins/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
+        <option value="$USER_HOME$/Desktop/github/skywalking-java/apm-sniffer/apm-sdk-plugin/lyz-thread-plugin/pom.xml" />
+        <option value="$USER_HOME$/Desktop/github/skywalking-java/jdk-thread-plugin/pom.xml" />
         <option value="$PROJECT_DIR$/lyz-auth/auth-core/pom.xml" />
         <option value="$PROJECT_DIR$/lyz-security/pom.xml" />
       </set>

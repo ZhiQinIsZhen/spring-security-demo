@@ -11,6 +11,7 @@ import com.lyz.security.auth.server.bo.AuthUserLoginBO;
 import com.lyz.security.auth.server.bo.AuthUserRegisterBO;
 import com.lyz.security.common.controller.result.Result;
 import com.lyz.security.common.core.util.CommonCloneUtil;
+import com.lyz.security.common.util.JsonMapperUtil;
 import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +61,7 @@ public class AuthenticationController {
     @PostMapping("/login")
     public Result<AuthLoginVO> login(@Validated({LoginDTO.Login.class}) @RequestBody LoginDTO loginDTO) {
         executor.execute(() -> log.info("这是一个异步线程的日志...."));
-        log.info("开始登陆了....");
+        log.info("开始登陆了....{}", JsonMapperUtil.toJSONString(loginDTO));
         AuthLoginVO authLoginVO = CommonCloneUtil.objectClone(
                 AuthContext.AuthService.login(CommonCloneUtil.objectClone(loginDTO, AuthUserLoginBO.class)),
                 AuthLoginVO.class);
